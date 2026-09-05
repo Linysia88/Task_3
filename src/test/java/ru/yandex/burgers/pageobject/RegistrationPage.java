@@ -3,6 +3,10 @@ package ru.yandex.burgers.pageobject;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class RegistrationPage {
 
@@ -32,27 +36,52 @@ public class RegistrationPage {
 
     @Step("Ввести имя: {name}")
     public void enterName(String name) {
-        driver.findElement(nameField).sendKeys(name);
+        WebDriverWait wait =
+                new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        wait.until(
+                ExpectedConditions.visibilityOfElementLocated(nameField)
+        ).sendKeys(name);
     }
 
     @Step("Ввести email: {email}")
     public void enterEmail(String email) {
-        driver.findElement(emailField).sendKeys(email);
+        WebDriverWait wait =
+                new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        wait.until(
+                ExpectedConditions.visibilityOfElementLocated(emailField)
+        ).sendKeys(email);
     }
 
     @Step("Ввести пароль")
     public void enterPassword(String password) {
-        driver.findElement(passwordField).sendKeys(password);
+        WebDriverWait wait =
+                new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        wait.until(
+                ExpectedConditions.visibilityOfElementLocated(passwordField)
+        ).sendKeys(password);
     }
 
     @Step("Нажать кнопку «Зарегистрироваться»")
     public void clickRegistrationButton() {
-        driver.findElement(registrationButton).click();
+        WebDriverWait wait =
+                new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        wait.until(
+                ExpectedConditions.elementToBeClickable(registrationButton)
+        ).click();
     }
 
     @Step("Перейти на страницу авторизации")
     public void clickLoginLink() {
-        driver.findElement(loginLink).click();
+        WebDriverWait wait =
+                new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        wait.until(
+                ExpectedConditions.elementToBeClickable(loginLink)
+        ).click();
     }
 
     @Step("Заполнить форму регистрации и зарегистрироваться")
@@ -65,6 +94,13 @@ public class RegistrationPage {
 
     @Step("Проверить сообщение о некорректном пароле")
     public boolean isWrongPasswordMessageDisplayed() {
-        return driver.findElement(wrongPasswordMessage).isDisplayed();
+        WebDriverWait wait =
+                new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        return wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        wrongPasswordMessage
+                )
+        ).isDisplayed();
     }
 }

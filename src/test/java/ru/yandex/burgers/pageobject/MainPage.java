@@ -51,17 +51,16 @@ public class MainPage {
 
     @Step("Перейти в «Личный кабинет»")
     public void clickPersonalAccount() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait =
+                new WebDriverWait(driver, Duration.ofSeconds(10));
 
         wait.until(ExpectedConditions.invisibilityOfElementLocated(
                 By.cssSelector("div[class*='Modal_modal_overlay']")
         ));
 
-        WebElement accountLink = wait.until(
+        wait.until(
                 ExpectedConditions.elementToBeClickable(personalAccountLink)
-        );
-
-        accountLink.click();
+        ).click();
     }
 
     @Step("Нажать на логотип Stellar Burgers")
@@ -94,11 +93,25 @@ public class MainPage {
 
     @Step("Проверить, что выбран раздел «Соусы»")
     public boolean isSaucesSectionSelected() {
-        return driver.findElement(selectedSaucesSection).isDisplayed();
+        WebDriverWait wait =
+                new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        return wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        selectedSaucesSection
+                )
+        ).isDisplayed();
     }
 
     @Step("Проверить, что выбран раздел «Начинки»")
     public boolean isFillingsSectionSelected() {
-        return driver.findElement(selectedFillingsSection).isDisplayed();
+        WebDriverWait wait =
+                new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        return wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        selectedFillingsSection
+                )
+        ).isDisplayed();
     }
 }

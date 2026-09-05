@@ -3,6 +3,10 @@ package ru.yandex.burgers.pageobject;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class LoginPage {
 
@@ -58,8 +62,14 @@ public class LoginPage {
         enterPassword(password);
         clickLoginButton();
     }
+
     @Step("Проверить, что открыта страница авторизации")
     public boolean isLoginPageDisplayed() {
-        return driver.findElement(emailField).isDisplayed();
+        WebDriverWait wait =
+                new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        return wait.until(
+                ExpectedConditions.visibilityOfElementLocated(emailField)
+        ).isDisplayed();
     }
 }

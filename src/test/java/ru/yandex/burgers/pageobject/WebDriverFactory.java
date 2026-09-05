@@ -15,6 +15,10 @@ public class WebDriverFactory {
             case "yandex":
                 ChromeOptions options = new ChromeOptions();
                 options.setBinary("/Applications/Yandex.app/Contents/MacOS/Yandex");
+                System.setProperty(
+                        "webdriver.chrome.driver",
+                        "drivers/chromedriver"
+                );
                 return new ChromeDriver(options);
 
             default:

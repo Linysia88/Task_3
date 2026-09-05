@@ -11,7 +11,8 @@ public class BaseTest {
 
     @BeforeEach
     public void setUp() {
-        driver = WebDriverFactory.getWebDriver("chrome");
+        String browser = System.getProperty("browser", "chrome");
+        driver = WebDriverFactory.getWebDriver(browser);
         driver.get("https://qa-stellarburgers.education-services.ru/");
     }
 
